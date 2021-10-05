@@ -113,6 +113,13 @@ export default class AttachesTool {
   /**
    * Tool's CSS classes
    */
+  static get isReadOnlySupported() {
+    return true;
+  }
+
+  /**
+   * Tool's CSS classes
+   */
   get CSS() {
     return {
       baseClass: this.api.styles.block,
@@ -257,18 +264,14 @@ export default class AttachesTool {
     const body = response.body;
 
     if (body.success && body.file) {
-      const { url, name, size, title } = body.file;
+      const file = Object.assign({}, body.file);
 
-      console.log('icicicicicic', body.file);
-      this.data = {
-        file: {
-          url,
-          extension: name.split('.').pop(),
-          name,
-          size
-        },
-        title
-      };
+      file.extension = file.name.split('.').pop();
+
+      this.data.file = file;
+      if (!this.data.title) {
+        this.data.title = file.title ? file.title : file.name;
+      }
 
       this.nodes.button.remove();
       this.showFileData();
@@ -390,12 +393,7 @@ export default class AttachesTool {
   set data({ file, title }) {
     console.log('file', file);
     this._data = Object.assign({}, {
-      file: {
-        url: (file && file.url) || this._data.file.url,
-        name: (file && file.name) || this._data.file.name,
-        extension: (file && file.extension) || this._data.file.extension,
-        size: (file && file.size) || this._data.file.size
-      },
+      file: file || {},
       title: title || this._data.title
     });
   }
