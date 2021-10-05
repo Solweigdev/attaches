@@ -2,14 +2,6 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
-  output: {
-    path: path.join(__dirname, '/dist'),
-    publicPath: '/',
-    filename: 'bundle.js',
-    library: 'AttachesTool',
-    libraryTarget: 'umd',
-    libraryExport: 'default'
-  },
   module: {
     rules: [
       {
@@ -57,5 +49,13 @@ module.exports = {
         loader: 'svg-inline-loader?removeSVGTagAttrs=false'
       }
     ]
-  }
+  },
+  output: {
+    path: path.join(__dirname, '/dist'),
+    publicPath: '/',
+    filename: 'bundle.js',
+    library: 'AttachesTool',
+    libraryTarget: 'umd',
+    libraryExport: 'default'
+  },
 };
