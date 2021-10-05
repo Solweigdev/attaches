@@ -18,6 +18,7 @@ const crypto = require('crypto');
  */
 class ServerExample {
   constructor({ port, fieldName }) {
+    console.log('__dirname', __dirname, fieldName)
     this.uploadDir = __dirname + '/\.tmp';
     this.fieldName = fieldName;
     this.server = http.createServer((req, res) => {

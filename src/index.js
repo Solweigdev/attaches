@@ -45,6 +45,9 @@ const LOADER_TIMEOUT = 500;
  * @property {string} types - available mime-types
  * @property {string} placeholder
  * @property {string} errorMessage
+ * @property {boolean} uuidSupport Defines if the returned url containes a uuid as fileName, if so than append the actual fileName to the url.
+ * @property {object} [uploader] - optional custom uploader
+ * @property {function(File): Promise.<UploadResponseFormat>} [uploader.uploadByFile] - custom method that upload file and returns response
  */
 
 /**
@@ -81,6 +84,8 @@ export default class AttachesTool {
       types: config.types || '*',
       buttonText: config.buttonText || 'Select file to upload',
       errorMessage: config.errorMessage || 'File upload failed',
+      uploader: config.uploader || undefined,
+      uuidSupport: config.uuidSupport || false,
       additionalRequestHeaders: config.additionalRequestHeaders || {}
     };
 
@@ -111,7 +116,8 @@ export default class AttachesTool {
   }
 
   /**
-   * Tool's CSS classes
+   * Notify core that read-only mode is supported
+   * @returns {boolean}
    */
   static get isReadOnlySupported() {
     return true;
@@ -173,7 +179,8 @@ export default class AttachesTool {
       psd: '#388ae5',
       dmg: '#e26f6f',
       json: '#2988f0',
-      csv: '#3f9e64'
+      csv: '#3f9e64',
+      md: '#8d9e3f'
     };
   }
 
@@ -261,7 +268,7 @@ export default class AttachesTool {
    * @param {UploadResponseFormat} response
    */
   onUpload(response) {
-    const body = response.body;
+    const body = response;
 
     if (body.success && body.file) {
       const file = Object.assign({}, body.file);
@@ -357,7 +364,7 @@ export default class AttachesTool {
 
     const downloadIcon = this.make('a', this.CSS.downloadButton, {
       innerHTML: DownloadIcon,
-      href: url,
+      href: this.config.uuidSupport ? (url + '/' + name) : url,
       target: '_blank',
       rel: 'nofollow noindex noreferrer'
     });
@@ -391,9 +398,9 @@ export default class AttachesTool {
    * @param {AttachesToolData} data
    */
   set data({ file, title }) {
-    console.log('file', file);
+    file = file || this._data.file;
     this._data = Object.assign({}, {
-      file: file || {},
+      file,
       title: title || this._data.title
     });
   }

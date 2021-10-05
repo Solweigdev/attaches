@@ -69,6 +69,7 @@ Attaches Tool supports these configuration parameters:
 | buttonText | `string` | (default: `Select file`) Placeholder for file upload button |
 | errorMessage | `string` | (default: `File upload failed`) Message to show if file upload failed |
 | additionalRequestHeaders | `object` | (default: `{}`) Object with any custom headers which will be added to request. Example: `{"X-CSRF-TOKEN": "W5fe2...hR8d1"}` |
+| uuidSupport | `boolean` | (default: `false` ) Defines if the returned url containes a uuid as fileName, if so than append the actual fileName to the url. The Backend needs to accept the second url parameter and use that in the reponse as the fileName, otherwise the uuid is the fileName which gets displayed to the user.  |
 
 
 ## Output data
