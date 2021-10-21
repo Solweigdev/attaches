@@ -328,6 +328,7 @@ export default class AttachesTool {
     console.log('name', name);
     console.log('size', size);
     console.log('url', url);
+    console.log('title', title);
 
     this.appendFileIcon();
 
@@ -337,6 +338,8 @@ export default class AttachesTool {
       this.nodes.title = this.make('div', this.CSS.title, {
         contentEditable: true
       });
+
+      console.log('sdsqdsqtitle', title);
 
       this.nodes.title.textContent = title;
       fileInfo.appendChild(this.nodes.title);
