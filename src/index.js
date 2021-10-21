@@ -322,7 +322,7 @@ export default class AttachesTool {
   showFileData() {
     this.nodes.wrapper.classList.add(this.CSS.wrapperWithFile);
 
-    const { file: { size, url, name } } = this.data;
+    const { file: { size, url, name }, title } = this.data;
 
     console.log('this.data', this.data);
     console.log('name', name);
@@ -333,12 +333,12 @@ export default class AttachesTool {
 
     const fileInfo = this.make('div', this.CSS.fileInfo);
 
-    if (name) {
+    if (title) {
       this.nodes.title = this.make('div', this.CSS.title, {
         contentEditable: true
       });
 
-      this.nodes.title.textContent = name;
+      this.nodes.title.textContent = title;
       fileInfo.appendChild(this.nodes.title);
     }
 
