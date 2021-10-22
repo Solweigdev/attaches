@@ -211,8 +211,6 @@ export default class AttachesTool {
 
     this.nodes.wrapper = this.make('div', this.CSS.wrapper);
 
-    console.log('(this.pluginHasData()', this.pluginHasData());
-
     if (this.pluginHasData()) {
       this.showFileData();
     } else {
@@ -248,7 +246,6 @@ export default class AttachesTool {
    * @return {boolean}
    */
   pluginHasData() {
-    console.log('ici', this.data);
     return this.data.title !== '' || Object.values(this.data.file).some(item => item !== undefined);
   }
 
@@ -323,12 +320,6 @@ export default class AttachesTool {
 
     const { file: { size, url, name }, title } = this.data;
 
-    console.log('this.data', this.data);
-    console.log('name', name);
-    console.log('size', size);
-    console.log('url', url);
-    console.log('title', title);
-
     this.appendFileIcon();
 
     const fileInfo = this.make('div', this.CSS.fileInfo);
@@ -337,8 +328,6 @@ export default class AttachesTool {
       this.nodes.title = this.make('div', this.CSS.title, {
         contentEditable: true
       });
-
-      console.log('sdsqdsqtitle', title);
 
       this.nodes.title.textContent = title;
       fileInfo.appendChild(this.nodes.title);
