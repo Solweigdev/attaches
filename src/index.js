@@ -240,7 +240,7 @@ export default class AttachesTool {
    * @public
    */
   appendCallback() {
-    this.nodes.button.click();
+    // this.nodes.button.click();
   }
 
   /**
